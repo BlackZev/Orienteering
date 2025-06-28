@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.esiea.orienteering.R;
-import edu.esiea.orienteering.model.Course;
-import edu.esiea.orienteering.viewmodel.CourseViewModel;
+import edu.esiea.orienteering.model.Race;
+import edu.esiea.orienteering.viewmodel.RaceViewModel;
 
 import java.util.ArrayList;
 
-public class FragmentListe extends Fragment {
+public class ListFragment extends Fragment {
     private RecyclerView recyclerView;
-    private CourseAdapter courseAdapter;
-    private CourseViewModel courseViewModel;
+    private RaceAdapter raceAdapter;
+    private RaceViewModel raceViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,26 +29,26 @@ public class FragmentListe extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        courseAdapter = new CourseAdapter(new ArrayList<>(), this::onEditCourse, this::onDeleteCourse);
-        recyclerView.setAdapter(courseAdapter);
+        raceAdapter = new RaceAdapter(new ArrayList<>(), this::onEditRace, this::onDeleteRace);
+        recyclerView.setAdapter(raceAdapter);
 
-        courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-        courseViewModel.getCourses().observe(getViewLifecycleOwner(), courses -> courseAdapter.updateCourses(courses));
+        raceViewModel = new ViewModelProvider(this).get(RaceViewModel.class);
+        raceViewModel.getRaces().observe(getViewLifecycleOwner(), races -> raceAdapter.updateRaces(races));
 
         return view;
     }
 
-    private void onEditCourse(Course course) {
+    private void onEditRace(Race race) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("course", course);
-        NavHostFragment.findNavController(FragmentListe.this).navigate(R.id.action_to_fragmentEdition, bundle);
+        bundle.putSerializable("race", race);
+        NavHostFragment.findNavController(ListFragment.this).navigate(R.id.action_to_fragmentEdition, bundle);
     }
 
-    private void onDeleteCourse(Course course) {
+    private void onDeleteRace(Race race) {
         new AlertDialog.Builder(getContext())
-                .setTitle("Supprimer la course")
-                .setMessage("Êtes-vous sûr de vouloir supprimer cette course ?")
-                .setPositiveButton("Oui", (dialog, which) -> courseViewModel.deleteCourse(course))
+                .setTitle("Supprimer la race")
+                .setMessage("Êtes-vous sûr de vouloir supprimer cette race ?")
+                .setPositiveButton("Oui", (dialog, which) -> raceViewModel.deleteRace(race))
                 .setNegativeButton("Non", null)
                 .show();
     }

@@ -5,7 +5,7 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 // TODO Ajouter les annotations Room nécessaires ainsi que les clefs éventuelles.
-public class Balise {
+public class Marker {
     public String name;
     // TODO définir le champs servant à mémoriser la position de la balise
 }

@@ -11,12 +11,12 @@ import edu.esiea.orienteering.R;
 
 import org.osmdroid.views.MapView;
 
-public class FragmentCarte extends Fragment {
+public class OSMFragment extends Fragment {
     private MapView mapView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_carte, container, false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
         mapView = view.findViewById(R.id.map);
         mapView.setTileSource(org.osmdroid.tileprovider.tilesource.TileSourceFactory.MAPNIK);
 
