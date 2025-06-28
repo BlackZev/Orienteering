@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "edu.esiea.orienteering"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "edu.esiea.orienteering"
