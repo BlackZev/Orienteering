@@ -5,28 +5,50 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
+kotlinxSerializationJson = "1.7.3"
+lifecycleLivedataKtx = "2.9.1"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 osmdroidAndroid = "6.1.11"
-roomRuntimeAndroid = "2.7.2"
+room = "2.7.2"
 navigationFragment = "2.9.0"
+junitJunit = "4.12"
+roomCommonJvm = "2.7.2"
+
 
 [libraries]
-holocolorpicker = { module = "com.larswerkman:HoloColorPicker", version.ref = "holocolorpicker" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+
+# junit
+junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+
+# ui
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+# room
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+# osm
 osmdroid-android = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroidAndroid" }
-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntimeAndroid" }
-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntimeAndroid" }
-room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "roomRuntimeAndroid" }
+
+# navigation
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
+androidx-navigation-dynamic-features-fragment = { module = "androidx.navigation:navigation-dynamic-features-fragment", version.ref = "navigationFragment" }
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationFragment" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationFragment" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationFragment" }
+
+# colorpicker
+holocolorpicker = { module = "com.larswerkman:HoloColorPicker", version.ref = "holocolorpicker" }
+androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-

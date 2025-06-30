@@ -1,76 +1,48 @@
 package edu.esiea.orienteering;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import org.osmdroid.api.IMapController;
-import org.osmdroid.config.Configuration;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-
-import java.util.ArrayList;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private MapView map = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.main_osm_fragment);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.map), (v, insets) -> {
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.coly_main_fragment), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        Context ctx = getApplicationContext();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-        map = findViewById(R.id.map);
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        map.setMultiTouchControls(true);
+        Toolbar app_toolbar = findViewById(R.id.app_toolbar);
+        setSupportActionBar(app_toolbar);
+        ImageButton btn_home = app_toolbar.findViewById(R.id.btn_home);
 
-        IMapController mapController = map.getController();
-        mapController.setZoom(20);
-        GeoPoint startPoint = new GeoPoint(43.7194789, -1.0521627);
-        mapController.setCenter(startPoint);
-    }
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fg_container_view);
+        assert navHostFragment != null;
+        NavController navController = navHostFragment.getNavController();
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        map.onResume();
-    }
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            boolean isOnOsmFragment = (destination.getId() == R.id.fg_osm);
+            btn_home.setVisibility(isOnOsmFragment ? ImageButton.GONE : ImageButton.VISIBLE);
+            btn_home.setClickable(!isOnOsmFragment);
+        });
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        map.onPause();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        ArrayList<String> permissionsToRequest = new ArrayList<>();
-        for (int i = 0; i < grantResults.length; i++) {
-            permissionsToRequest.add(permissions[i]);
-        }
-        if (!permissionsToRequest.isEmpty()) {
-            int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
-            ActivityCompat.requestPermissions(
-                    this,
-                    permissionsToRequest.toArray(new String[0]),
-                    REQUEST_PERMISSIONS_REQUEST_CODE);
-        }
+        btn_home.setOnClickListener(v -> {
+            navController.navigate(R.id.go_to_OSMFragment);
+        });
     }
 }

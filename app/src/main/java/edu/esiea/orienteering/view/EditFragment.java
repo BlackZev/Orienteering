@@ -1,6 +1,5 @@
 package edu.esiea.orienteering.view;
 
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +10,7 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import edu.esiea.orienteering.R;
@@ -21,60 +21,64 @@ import com.larswerkman.holocolorpicker.ColorPicker;
 import com.google.android.material.slider.Slider;
 
 public class EditFragment extends Fragment {
-    private EditText raceName;
-    private ColorPicker colorPicker;
-    private Slider numMarkersSlider;
-    private Slider minDistanceSlider;
-    private Slider maxDistanceSlider;
+    private EditText et_name;
+    private ColorPicker colpi_color;
+    private Slider sli_numMarkers;
+    private Slider sli_minDistance;
+    private Slider sli_maxDistance;
     private RaceViewModel raceViewModel;
-    private Race currentRace;
+    private Race currRace;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_edition, container, false);
-        raceName = view.findViewById(R.id.raceName);
-        colorPicker = view.findViewById(R.id.colorPicker);
-        numMarkersSlider = view.findViewById(R.id.numMarkersSlider);
-        minDistanceSlider = view.findViewById(R.id.minDistanceSlider);
-        maxDistanceSlider = view.findViewById(R.id.maxDistanceSlider);
+        view = inflater.inflate(R.layout.edit_fragment, container, false);
+        et_name = view.findViewById(R.id.et_name);
+        colpi_color = view.findViewById(R.id.colpi_color);
+        sli_numMarkers = view.findViewById(R.id.sli_numMarkers);
+        sli_minDistance = view.findViewById(R.id.sli_minDistance);
+        sli_maxDistance = view.findViewById(R.id.sli_maxDistance);
+        Button btn_add = view.findViewById(R.id.btn_add);
 
         raceViewModel = new ViewModelProvider(this).get(RaceViewModel.class);
 
         if (getArguments() != null && getArguments().getSerializable("race") != null) {
-            currentRace = (Race) getArguments().getSerializable("race");
+            currRace = (Race) getArguments().getSerializable("race");
             loadRaceDetails();
         }
 
-        Button validateButton = view.findViewById(R.id.validateButton);
-        validateButton.setOnClickListener(v -> saveRace());
+        btn_add.setOnClickListener(v -> saveRace());
 
         return view;
     }
 
     private void loadRaceDetails() {
-        raceName.setText(currentRace.name);
-        colorPicker.setColor(Color.parseColor(currentRace.color));
-        numMarkersSlider.setValue(currentRace.numMarkers);
-        minDistanceSlider.setValue(currentRace.minDistance);
-        maxDistanceSlider.setValue(currentRace.maxDistance);
+        et_name.setText(currRace.getName());
+        colpi_color.setColor(Color.parseColor(currRace.getColor()));
+        sli_numMarkers.setValue(currRace.getNumMarkers());
+        sli_minDistance.setValue(currRace.getMinDistance());
+        sli_maxDistance.setValue(currRace.getMaxDistance());
     }
 
     private void saveRace() {
-        if (currentRace == null) {
-            currentRace = new Race();
+        if (currRace == null) {
+            currRace = new Race();
         }
-        currentRace.name = raceName.getText().toString();
-        currentRace.color = String.format("#%06X", (0xFFFFFF & colorPicker.getColor()));
-        currentRace.numMarkers = (int) numMarkersSlider.getValue();
-        currentRace.minDistance = minDistanceSlider.getValue();
-        currentRace.maxDistance = maxDistanceSlider.getValue();
+        currRace.setName(et_name.getText().toString() + "e balise");
+        currRace.setColor(String.format("#%06X", (0xFFFFFF & colpi_color.getColor())));
+        currRace.setNumMarkers((int) sli_numMarkers.getValue());
+        currRace.setMinDistance((int) sli_minDistance.getValue());
+        currRace.setMaxDistance((int) sli_maxDistance.getValue());
 
-        if (currentRace.id == 0) {
-            raceViewModel.insertRace(currentRace);
+        if (currRace.getId() == 0) {
+            raceViewModel.insert(currRace);
         } else {
-            raceViewModel.updateRace(currentRace);
+            raceViewModel.update(currRace);
         }
 
-        NavHostFragment.findNavController(EditFragment.this).navigate(R.id.action_to_fragmentCarte);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("race", currRace);
+        bundle.putBoolean("poseMode", true);
+        Navigation.findNavController(view).navigate(R.id.go_to_OSMFragment, bundle);
     }
 }

@@ -1,4 +1,4 @@
-package edu.esiea.orientation.utils;
+package edu.esiea.orienteering.utils;
 
 import android.graphics.Color;
 

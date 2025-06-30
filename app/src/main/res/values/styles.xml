@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="sty_textview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <style name="sty_formfields">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:background">@android:drawable/edit_text</item>
+        <item name="android:textColor">@color/cl_txt</item>
+    </style>
+
+    <style name="sty_sliders">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:stepSize">1</item>
+        <item name="android:valueFrom">2</item>
+        <item name="android:valueTo">10</item>
+    </style>
+</resources>

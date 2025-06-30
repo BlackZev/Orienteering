@@ -15,6 +15,9 @@ public interface MarkerDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Marker marker);
 
+    @Query("SELECT * FROM marker WHERE idRace = :idRace")
+    LiveData<List<Marker>> getMarkersRace(int idRace);
+
     @Query("DELETE FROM marker")
     void deleteAll();
 

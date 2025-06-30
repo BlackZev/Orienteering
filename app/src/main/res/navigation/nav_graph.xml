@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fg_osm">
+
+    <fragment
+        android:id="@+id/fg_osm"
+        android:name="edu.esiea.orienteering.view.OSMFragment"
+        android:label="Map">
+        <action
+            android:id="@+id/go_to_EditFragment"
+            app:destination="@id/fg_edit" />
+        <action
+            android:id="@+id/go_to_ListFragment"
+            app:destination="@id/fg_list" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fg_edit"
+        android:name="edu.esiea.orienteering.view.EditFragment"
+        android:label="Edit">
+        <action
+            android:id="@+id/go_to_OSMFragment"
+            app:destination="@id/fg_osm" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fg_list"
+        android:name="edu.esiea.orienteering.view.ListFragment"
+        android:label="List">
+        <action
+            android:id="@+id/go_to_EditFragment"
+            app:destination="@id/fg_edit" />
+        <action
+            android:id="@+id/go_to_OSMFragment"
+            app:destination="@id/fg_osm" />
+    </fragment>
+</navigation>

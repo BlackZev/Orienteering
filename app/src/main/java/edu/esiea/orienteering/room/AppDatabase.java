@@ -16,7 +16,7 @@ import edu.esiea.orienteering.model.Marker;
 import edu.esiea.orienteering.model.Race;
 
 // TODO ajouter les anotations nécessaires.
-@Database(entities = {Marker.class, Race.class}, version = 1, exportSchema = false)
+@Database(entities = {Marker.class, Race.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract MarkerDao markerDao();
     public abstract RaceDao raceDao();
@@ -33,7 +33,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     AppDatabase.class, "orienteering-database")
-                            .fallbackToDestructiveMigration(false)
+                            .fallbackToDestructiveMigration(true)
                             .build();
                 }
             }

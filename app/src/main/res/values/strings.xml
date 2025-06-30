@@ -1,5 +1,18 @@
 <resources>
     <string name="app_name">Orienteering</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- Textview -->
     <string name="txt_newrace">Nouvelle course</string>
     <string name="txt_listrace">Liste des courses</string>
+    <string name="txt_color">Couleur</string>
+    <string name="txt_numMarkers">Nombre de balises</string>
+    <string name="txt_minDistance">Distance minimale (m)</string>
+    <string name="txt_maxDistance">Distance maximale (m)</string>
+    <string name="txt_add">Enregistrer</string>
+
+    <!-- Hint -->
+    <string name="ht_name">Nom de la course</string>
+    <string name="btn_text_edit">Éditer</string>
+    <string name="btn_text_delete">Supprimer</string>
 </resources>

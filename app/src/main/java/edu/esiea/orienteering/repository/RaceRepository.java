@@ -20,11 +20,23 @@ public class RaceRepository {
         races = dao.getAll();
     }
 
+    public void insert(Race race) {
+        AppDatabase.databaseWriteExecutor.execute(() -> dao.insert(race));
+    }
+
     public LiveData<List<Race>> getAll() { return races; }
 
-    public void insert(Race race) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            dao.insert(race);
-        });
+    public LiveData<Race> getRaceById(int id) { return dao.getRaceById(id); };
+
+    public LiveData<String> getByColorCode(int idRace) {
+        return dao.getByColorCode(idRace);
+    }
+
+    public void update(Race race) {
+        AppDatabase.databaseWriteExecutor.execute(() -> dao.update(race));
+    }
+
+    public void delete(Race race) {
+        AppDatabase.databaseWriteExecutor.execute(() -> dao.delete(race));
     }
 }

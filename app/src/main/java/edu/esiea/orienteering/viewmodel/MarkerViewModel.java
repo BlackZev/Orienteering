@@ -20,6 +20,6 @@ public class MarkerViewModel extends AndroidViewModel {
         markers = repo.getAll();
     }
 
-    LiveData<List<Marker>> getAll() { return markers; }
+    public LiveData<List<Marker>> getAll() { return markers; }
     public void insert(Marker marker) { repo.insert(marker); }
 }
